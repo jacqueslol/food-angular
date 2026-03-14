@@ -1,0 +1,1114 @@
+{
+  "recipes": [
+    {
+      "details": {
+        "name": "Shakshuka with Feta",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "breakfast",
+          "one-pot",
+          "quick",
+          "vegetarian"
+        ],
+        "prepTime": 30,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 2,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 1,
+          "text": "onion, finely chopped"
+        },
+        {
+          "qty": 1,
+          "text": "red bell pepper, diced"
+        },
+        {
+          "qty": 3,
+          "text": "garlic cloves, minced"
+        },
+        {
+          "qty": 1,
+          "text": "tsp smoked paprika"
+        },
+        {
+          "qty": 0.5,
+          "text": "tsp ground cumin"
+        },
+        {
+          "qty": 800,
+          "text": "g canned chopped tomatoes"
+        },
+        {
+          "qty": 6,
+          "text": "large eggs"
+        },
+        {
+          "qty": 100,
+          "text": "g feta, crumbled"
+        },
+        {
+          "qty": 0,
+          "text": "salt and black pepper to taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Heat oil in a skillet, then saute onion and pepper until softened.",
+          "showTimer": false,
+          "timerMins": 8,
+          "videoTime": null
+        },
+        {
+          "text": "Add garlic, paprika, and cumin. Cook for 1 minute until fragrant.",
+          "showTimer": false,
+          "timerMins": 1,
+          "videoTime": null
+        },
+        {
+          "text": "Stir in tomatoes and simmer until slightly thickened.",
+          "showTimer": false,
+          "timerMins": 10,
+          "videoTime": null
+        },
+        {
+          "text": "Make 6 wells and crack in eggs. Cover and cook until egg whites set.",
+          "showTimer": false,
+          "timerMins": 6,
+          "videoTime": null
+        },
+        {
+          "text": "Season to taste and top with feta before serving.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/shakshuka-with-feta.jpg",
+      "id": "1"
+    },
+    {
+      "details": {
+        "name": "Lemon Herb Chicken Rice Bowls",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "lunch",
+          "dinner",
+          "meal-prep",
+          "high-protein"
+        ],
+        "prepTime": 45,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 700,
+          "text": "g chicken thighs, boneless"
+        },
+        {
+          "qty": 2,
+          "text": "cups cooked rice"
+        },
+        {
+          "qty": 1,
+          "text": "zucchini, sliced"
+        },
+        {
+          "qty": 1,
+          "text": "red onion, sliced"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 1,
+          "text": "lemon, zested and juiced"
+        },
+        {
+          "qty": 1,
+          "text": "tsp dried oregano"
+        },
+        {
+          "qty": 0.5,
+          "text": "tsp garlic powder"
+        },
+        {
+          "qty": 0,
+          "text": "salt and black pepper to taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Toss chicken with lemon zest, half the juice, oregano, garlic powder, oil, salt, and pepper.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Roast chicken, zucchini, and onion at 220C until cooked and caramelized.",
+          "showTimer": false,
+          "timerMins": 25,
+          "videoTime": null
+        },
+        {
+          "text": "Slice chicken and divide with rice and vegetables into bowls.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Finish with remaining lemon juice before serving.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/lemon-herb-chicken.jpg",
+      "id": "2"
+    },
+    {
+      "details": {
+        "name": "Beef Stroganoff",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "comfort-food",
+          "dinner"
+        ],
+        "prepTime": 40,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 500,
+          "text": "g beef strips"
+        },
+        {
+          "qty": 250,
+          "text": "g mushrooms, sliced"
+        },
+        {
+          "qty": 1,
+          "text": "onion, finely diced"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp butter"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp flour"
+        },
+        {
+          "qty": 1.5,
+          "text": "cups beef stock"
+        },
+        {
+          "qty": 0.75,
+          "text": "cup sour cream"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp Dijon mustard"
+        },
+        {
+          "qty": 0,
+          "text": "salt and black pepper to taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Sear beef in batches until browned, then set aside.",
+          "showTimer": false,
+          "timerMins": 8,
+          "videoTime": null
+        },
+        {
+          "text": "Cook onion and mushrooms in butter until golden.",
+          "showTimer": false,
+          "timerMins": 7,
+          "videoTime": null
+        },
+        {
+          "text": "Stir in flour, then whisk in beef stock and simmer until thickened.",
+          "showTimer": false,
+          "timerMins": 6,
+          "videoTime": null
+        },
+        {
+          "text": "Lower heat, add sour cream and mustard, then return beef to pan.",
+          "showTimer": false,
+          "timerMins": 5,
+          "videoTime": null
+        },
+        {
+          "text": "Season and serve over noodles or mashed potatoes.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/beef-stroganoff-featured-2025.jpg",
+      "id": "3"
+    },
+    {
+      "details": {
+        "name": "Thai Basil Chicken",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "quick",
+          "high-protein"
+        ],
+        "prepTime": 25,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 500,
+          "text": "g chicken mince"
+        },
+        {
+          "qty": 4,
+          "text": "garlic cloves, minced"
+        },
+        {
+          "qty": 2,
+          "text": "red chilies, sliced"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp soy sauce"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp oyster sauce"
+        },
+        {
+          "qty": 1,
+          "text": "tsp fish sauce"
+        },
+        {
+          "qty": 1,
+          "text": "tsp sugar"
+        },
+        {
+          "qty": 2,
+          "text": "cups Thai basil leaves"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp neutral oil"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Heat oil and fry garlic with chilies for 30 seconds.",
+          "showTimer": false,
+          "timerMins": 1,
+          "videoTime": null
+        },
+        {
+          "text": "Add chicken mince and stir-fry until cooked through.",
+          "showTimer": false,
+          "timerMins": 8,
+          "videoTime": null
+        },
+        {
+          "text": "Add soy sauce, oyster sauce, fish sauce, and sugar.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        },
+        {
+          "text": "Fold in basil leaves and cook just until wilted.",
+          "showTimer": false,
+          "timerMins": 1,
+          "videoTime": null
+        },
+        {
+          "text": "Serve hot with steamed rice.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Thai-Basil-Chicken-3.jpg",
+      "id": "4"
+    },
+    {
+      "details": {
+        "name": "Chickpea Coconut Curry",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "vegetarian",
+          "vegan",
+          "one-pot"
+        ],
+        "prepTime": 35,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 2,
+          "text": "tbsp coconut oil"
+        },
+        {
+          "qty": 1,
+          "text": "onion, chopped"
+        },
+        {
+          "qty": 3,
+          "text": "garlic cloves, minced"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp fresh ginger, grated"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp curry paste"
+        },
+        {
+          "qty": 400,
+          "text": "ml coconut milk"
+        },
+        {
+          "qty": 400,
+          "text": "g canned chickpeas, drained"
+        },
+        {
+          "qty": 2,
+          "text": "cups baby spinach"
+        },
+        {
+          "qty": 1,
+          "text": "lime, juiced"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Saute onion in coconut oil until translucent.",
+          "showTimer": false,
+          "timerMins": 5,
+          "videoTime": null
+        },
+        {
+          "text": "Add garlic, ginger, and curry paste; cook until fragrant.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        },
+        {
+          "text": "Pour in coconut milk and chickpeas, then simmer.",
+          "showTimer": false,
+          "timerMins": 15,
+          "videoTime": null
+        },
+        {
+          "text": "Stir through spinach until wilted and finish with lime juice.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        },
+        {
+          "text": "Serve with rice or flatbread.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Coconut-Chickpea-Curry.jpg",
+      "id": "5"
+    },
+    {
+      "details": {
+        "name": "Baked Salmon and Greens",
+        "serves": 3,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "quick",
+          "high-protein",
+          "gluten-free"
+        ],
+        "prepTime": 25,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 3,
+          "text": "salmon fillets"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 1,
+          "text": "lemon, sliced"
+        },
+        {
+          "qty": 1,
+          "text": "tsp dried dill"
+        },
+        {
+          "qty": 250,
+          "text": "g green beans, trimmed"
+        },
+        {
+          "qty": 200,
+          "text": "g broccoli florets"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp butter"
+        },
+        {
+          "qty": 0,
+          "text": "salt and black pepper to taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Place salmon and vegetables on a tray, drizzle with oil, and season.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Top salmon with lemon slices and dill.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Bake at 210C until salmon flakes easily.",
+          "showTimer": false,
+          "timerMins": 14,
+          "videoTime": null
+        },
+        {
+          "text": "Toss hot vegetables with butter and serve with salmon.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/One-Pan-Salmon-and-Vegetables-4-1.jpg",
+      "id": "6"
+    },
+    {
+      "details": {
+        "name": "Roasted Tomato Soup and Grilled Cheese",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "lunch",
+          "soup",
+          "comfort-food",
+          "vegetarian"
+        ],
+        "prepTime": 50,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 1.2,
+          "text": "kg ripe tomatoes, halved"
+        },
+        {
+          "qty": 1,
+          "text": "onion, quartered"
+        },
+        {
+          "qty": 6,
+          "text": "garlic cloves"
+        },
+        {
+          "qty": 3,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 2,
+          "text": "cups vegetable stock"
+        },
+        {
+          "qty": 8,
+          "text": "slices sandwich bread"
+        },
+        {
+          "qty": 200,
+          "text": "g cheddar cheese, grated"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp butter"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Roast tomatoes, onion, and garlic with olive oil at 220C until caramelized.",
+          "showTimer": false,
+          "timerMins": 30,
+          "videoTime": null
+        },
+        {
+          "text": "Blend roasted vegetables with stock until smooth.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Simmer soup for 10 minutes and season to taste.",
+          "showTimer": false,
+          "timerMins": 10,
+          "videoTime": null
+        },
+        {
+          "text": "Butter bread, fill with cheddar, and toast sandwiches until golden.",
+          "showTimer": false,
+          "timerMins": 8,
+          "videoTime": null
+        },
+        {
+          "text": "Serve soup hot with grilled cheese.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Roasted-Tomato-Soup-1-Socials-scaled.jpg",
+      "id": "7"
+    },
+    {
+      "details": {
+        "name": "Greek Chicken Salad",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "lunch",
+          "dinner",
+          "salad",
+          "high-protein",
+          "gluten-free"
+        ],
+        "prepTime": 25,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 500,
+          "text": "g grilled chicken breast, sliced"
+        },
+        {
+          "qty": 1,
+          "text": "romaine lettuce, chopped"
+        },
+        {
+          "qty": 1,
+          "text": "cucumber, diced"
+        },
+        {
+          "qty": 250,
+          "text": "g cherry tomatoes, halved"
+        },
+        {
+          "qty": 0.5,
+          "text": "red onion, thinly sliced"
+        },
+        {
+          "qty": 100,
+          "text": "g feta cheese"
+        },
+        {
+          "qty": 0.5,
+          "text": "cup kalamata olives"
+        },
+        {
+          "qty": 3,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 1.5,
+          "text": "tbsp red wine vinegar"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Combine lettuce, cucumber, tomatoes, onion, olives, and feta in a large bowl.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Whisk olive oil with vinegar, salt, and pepper to make a dressing.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Top salad with sliced chicken and drizzle with dressing.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Serve immediately.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Greek-chicken-salad-recipe-6.jpg",
+      "id": "8"
+    },
+    {
+      "details": {
+        "name": "Mushroom Spinach Risotto",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "vegetarian",
+          "comfort-food"
+        ],
+        "prepTime": 45,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 1.5,
+          "text": "cups arborio rice"
+        },
+        {
+          "qty": 1,
+          "text": "onion, finely chopped"
+        },
+        {
+          "qty": 300,
+          "text": "g mushrooms, sliced"
+        },
+        {
+          "qty": 4,
+          "text": "cups warm vegetable stock"
+        },
+        {
+          "qty": 0.5,
+          "text": "cup dry white wine"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp butter"
+        },
+        {
+          "qty": 0.75,
+          "text": "cup parmesan, grated"
+        },
+        {
+          "qty": 2,
+          "text": "cups baby spinach"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Saute onion and mushrooms in butter until softened.",
+          "showTimer": false,
+          "timerMins": 8,
+          "videoTime": null
+        },
+        {
+          "text": "Add rice and cook for 1 minute, stirring.",
+          "showTimer": false,
+          "timerMins": 1,
+          "videoTime": null
+        },
+        {
+          "text": "Pour in wine and let it absorb.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        },
+        {
+          "text": "Add warm stock one ladle at a time, stirring often, until rice is creamy.",
+          "showTimer": false,
+          "timerMins": 25,
+          "videoTime": null
+        },
+        {
+          "text": "Fold in spinach and parmesan, then season and serve.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Spinach-Mushroom-Risotto-SQUARE.jpg",
+      "id": "9"
+    },
+    {
+      "details": {
+        "name": "Sheet Pan Sausage, Peppers and Potatoes",
+        "serves": 4,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "one-pot",
+          "meal-prep",
+          "quick"
+        ],
+        "prepTime": 40,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 600,
+          "text": "g pork sausages"
+        },
+        {
+          "qty": 500,
+          "text": "g baby potatoes, halved"
+        },
+        {
+          "qty": 2,
+          "text": "bell peppers, sliced"
+        },
+        {
+          "qty": 1,
+          "text": "red onion, sliced"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp olive oil"
+        },
+        {
+          "qty": 1,
+          "text": "tsp dried oregano"
+        },
+        {
+          "qty": 0.5,
+          "text": "tsp chili flakes"
+        },
+        {
+          "qty": 0,
+          "text": "salt and black pepper to taste"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Toss potatoes, peppers, and onion with oil, oregano, chili flakes, salt, and pepper.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Spread on a sheet pan with sausages.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Roast at 220C, turning halfway, until sausages are cooked and potatoes are tender.",
+          "showTimer": false,
+          "timerMins": 30,
+          "videoTime": null
+        },
+        {
+          "text": "Rest 5 minutes before serving.",
+          "showTimer": false,
+          "timerMins": 5,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/sheet-pan-sausage-peppers-onions-and-potatoes.jpg",
+      "id": "10"
+    },
+    {
+      "details": {
+        "name": "Overnight Oats with Berries",
+        "serves": 2,
+        "servesText": "portion(s)",
+        "tags": [
+          "breakfast",
+          "meal-prep",
+          "vegetarian",
+          "quick"
+        ],
+        "prepTime": 10,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 1,
+          "text": "cup rolled oats"
+        },
+        {
+          "qty": 1,
+          "text": "cup milk of choice"
+        },
+        {
+          "qty": 0.5,
+          "text": "cup plain yogurt"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp chia seeds"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp honey"
+        },
+        {
+          "qty": 0.75,
+          "text": "cup mixed berries"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Mix oats, milk, yogurt, chia seeds, and honey in a container.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Cover and refrigerate overnight.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        },
+        {
+          "text": "Top with mixed berries before serving.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/blueberry-overnight-oats-40.jpg",
+      "id": "11"
+    },
+    {
+      "details": {
+        "name": "Turkey Bean Chili",
+        "serves": 6,
+        "servesText": "portion(s)",
+        "tags": [
+          "dinner",
+          "one-pot",
+          "high-protein",
+          "meal-prep",
+          "gluten-free"
+        ],
+        "prepTime": 55,
+        "creator": "Jacques Louw"
+      },
+      "ingredients": [
+        {
+          "qty": 750,
+          "text": "g turkey mince"
+        },
+        {
+          "qty": 1,
+          "text": "onion, chopped"
+        },
+        {
+          "qty": 1,
+          "text": "red bell pepper, chopped"
+        },
+        {
+          "qty": 3,
+          "text": "garlic cloves, minced"
+        },
+        {
+          "qty": 2,
+          "text": "tbsp chili powder"
+        },
+        {
+          "qty": 1,
+          "text": "tbsp ground cumin"
+        },
+        {
+          "qty": 800,
+          "text": "g canned tomatoes"
+        },
+        {
+          "qty": 400,
+          "text": "g kidney beans, drained"
+        },
+        {
+          "qty": 1,
+          "text": "cup chicken stock"
+        }
+      ],
+      "steps": [
+        {
+          "text": "Brown turkey mince in a large pot, then add onion and pepper.",
+          "showTimer": false,
+          "timerMins": 10,
+          "videoTime": null
+        },
+        {
+          "text": "Stir in garlic, chili powder, and cumin.",
+          "showTimer": false,
+          "timerMins": 2,
+          "videoTime": null
+        },
+        {
+          "text": "Add tomatoes, beans, and stock, then bring to a simmer.",
+          "showTimer": false,
+          "timerMins": 5,
+          "videoTime": null
+        },
+        {
+          "text": "Cook uncovered until thick and flavorful.",
+          "showTimer": false,
+          "timerMins": 30,
+          "videoTime": null
+        },
+        {
+          "text": "Season to taste and serve.",
+          "showTimer": false,
+          "timerMins": null,
+          "videoTime": null
+        }
+      ],
+      "video": "",
+      "videoFormat": "mp4",
+      "img": "images/Turkey-Chili-1-500x500.jpg",
+      "id": "12"
+    }
+  ],
+  "mealplanner": [
+    {
+      "day": "Tue",
+      "dateMonth": "23 Apr",
+      "year": "2024",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": [],
+      "id": "2024-04-23"
+    },
+    {
+      "id": "2026-03-08",
+      "day": "Mon",
+      "dateMonth": "09 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": []
+    },
+    {
+      "id": "2026-03-11",
+      "day": "Thu",
+      "dateMonth": "12 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": []
+    },
+    {
+      "id": "2026-03-10",
+      "day": "Wed",
+      "dateMonth": "11 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": []
+    },
+    {
+      "id": "2026-03-14",
+      "day": "Sun",
+      "dateMonth": "15 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": [
+        "12"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "breakfast",
+      "id": "1"
+    },
+    {
+      "name": "lunch",
+      "id": "2"
+    },
+    {
+      "name": "dinner",
+      "id": "3"
+    },
+    {
+      "name": "vegetarian",
+      "id": "4"
+    },
+    {
+      "name": "vegan",
+      "id": "5"
+    },
+    {
+      "name": "quick",
+      "id": "6"
+    },
+    {
+      "name": "one-pot",
+      "id": "7"
+    },
+    {
+      "name": "high-protein",
+      "id": "8"
+    },
+    {
+      "name": "comfort-food",
+      "id": "9"
+    },
+    {
+      "name": "meal-prep",
+      "id": "10"
+    },
+    {
+      "name": "gluten-free",
+      "id": "11"
+    },
+    {
+      "name": "salad",
+      "id": "12"
+    },
+    {
+      "name": "soup",
+      "id": "13"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

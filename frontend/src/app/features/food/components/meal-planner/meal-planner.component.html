@@ -1,0 +1,40 @@
+<aside class="planner" [class.visible]="show()">
+  <header>
+    <input type="week" (change)="onWeekChanged($event)" />
+    <button type="button" (click)="toggleEditMode.emit()">
+      {{ isEditMode() ? "Editing On" : "Editing Off" }}
+    </button>
+    <button type="button" class="close-btn" (click)="close.emit()">Close</button>
+  </header>
+
+  <section class="days">
+    @for (day of weekDays(); track day.id) {
+      <article class="day-card">
+        <div class="day-header">
+          <strong>{{ day.day }}</strong>
+          <span>{{ day.dateMonth }}, {{ day.year }}</span>
+        </div>
+
+        @for (meal of mealTypes; track meal) {
+          <div class="meal-block" (click)="onAssignRecipe(day.id, meal)">
+            <p class="meal-label">{{ meal }}</p>
+            @if (day[meal].length === 0) {
+              <small>No recipes</small>
+            } @else {
+              <div class="meal-items">
+                @for (recipeId of day[meal]; track recipeId) {
+                  <button type="button" (click)="onRecipeAction(day.id, meal, recipeId)">
+                    {{ recipesById().get(recipeId)?.details?.name ?? "Unknown recipe" }}
+                    @if (isEditMode()) {
+                      <span class="delete-indicator">x</span>
+                    }
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        }
+      </article>
+    }
+  </section>
+</aside>

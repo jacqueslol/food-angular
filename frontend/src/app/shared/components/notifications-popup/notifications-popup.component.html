@@ -1,0 +1,8 @@
+<section class="notifications">
+  @for (item of notificationsService.notifications(); track item.id) {
+    <article class="note" [class]="item.type">
+      <span>{{ item.message }}</span>
+      <button type="button" (click)="notificationsService.remove(item.id)">x</button>
+    </article>
+  }
+</section>

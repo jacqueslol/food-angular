@@ -1,0 +1,34 @@
+<article class="recipe-card" (click)="onOpenRecipe()">
+  <button
+    class="planner-btn"
+    [class.selected]="selectedForPlanner()"
+    (click)="onAddToPlanner($event)"
+    type="button"
+  >
+    + Planner
+  </button>
+
+  <div class="recipe-media">
+    @if (recipe().img) {
+      <img [ngSrc]="recipe().img" [alt]="recipe().details.name" fill sizes="(max-width: 850px) 100vw, 50vw" loading="lazy" />
+    } @else {
+      <div class="media-placeholder">No image</div>
+    }
+  </div>
+
+  <div class="recipe-content">
+    <h3>{{ recipe().details.name }}</h3>
+    <p class="meta">
+      {{ recipe().details.serves }} {{ recipe().details.servesText }} | {{ recipe().details.prepTime }} mins
+    </p>
+    <p class="creator">By {{ recipe().details.creator }}</p>
+    <div class="tags">
+      @for (tag of recipe().details.tags; track tag) {
+        <span>{{ tag }}</span>
+      }
+      @if (recipe().details.tags.length === 0) {
+        <span class="empty-tag">No tags</span>
+      }
+    </div>
+  </div>
+</article>

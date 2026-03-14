@@ -1,0 +1,157 @@
+<div class="food-page" [class.show-filters]="facade.showFilters()">
+  <app-notifications-popup />
+  <header class="topbar">
+    <h1><fa-icon [icon]="utensilsIcon"></fa-icon> FOOD</h1>
+    <input
+      type="text"
+      placeholder="Search recipes..."
+      [ngModel]="facade.filterState().name"
+      (ngModelChange)="facade.setNameFilter($event)"
+    />
+    <button type="button" (click)="facade.toggleFilters()">Filters</button>
+    <button type="button" (click)="facade.startNewRecipe()">Add</button>
+    <button type="button" (click)="facade.togglePlanner()">Planner</button>
+  </header>
+
+  @if (facade.showFilters()) {
+    <section class="filters">
+      <label>
+        Creator
+        <input
+          type="text"
+          [ngModel]="facade.filterState().creator"
+          (ngModelChange)="facade.setCreatorFilter($event)"
+        />
+      </label>
+      <label>
+        Duration max (mins)
+        <input
+          type="number"
+          [ngModel]="facade.filterState().durationLessThan"
+          (ngModelChange)="facade.onDurationFilterChanged($event)"
+        />
+      </label>
+      <label>
+        Ingredients (split by |)
+        <input
+          type="text"
+          [ngModel]="facade.ingredientsFilterInput()"
+          (ngModelChange)="facade.updateIngredientsFilter($event)"
+        />
+      </label>
+      <label>
+        Tags
+        <select
+          multiple
+          [ngModel]="facade.filterState().tags"
+          (ngModelChange)="facade.setTagFilters($event)"
+        >
+          @for (tag of facade.tags(); track tag.id) {
+            <option [ngValue]="tag.name">{{ tag.name }}</option>
+          }
+        </select>
+      </label>
+      <div class="selected-filters">
+        @for (tag of facade.filterState().tags; track tag) {
+          <button type="button" (click)="facade.removeFilterTag(tag)">{{ tag }} x</button>
+        }
+        @for (ingredient of facade.filterState().ingredients; track ingredient) {
+          <button type="button" (click)="facade.removeFilterIngredient(ingredient)">
+            {{ ingredient }} x
+          </button>
+        }
+      </div>
+    </section>
+  }
+
+  @if (facade.loading()) {
+    <div class="status">Loading recipes...</div>
+  } @else if (facade.error()) {
+    <div class="status error">{{ facade.error() }}</div>
+  } @else {
+    <main class="recipe-list">
+      @for (recipe of facade.filteredRecipes(); track recipe.id) {
+        <app-recipe-card
+          [recipe]="recipe"
+          [selectedForPlanner]="recipe.id === facade.selectedRecipeForPlanner()"
+          (openRecipe)="facade.openRecipe($event)"
+          (addRecipeToPlanner)="facade.addToPlanner($event)"
+        />
+      } @empty {
+        <div class="status">No recipes match your filters.</div>
+      }
+    </main>
+  }
+
+  @if (facade.selectedRecipe(); as selected) {
+    <app-recipe-editor
+      [recipe]="selected"
+      [availableTags]="facade.tags().map((tag) => tag.name).filter((name) => name !== 'video')"
+      [activeStep]="
+        selected.id !== undefined ? (facade.activeStepByRecipeId()[selected.id] ?? null) : null
+      "
+      [editMode]="facade.editMode()"
+      (closeEditor)="facade.closeRecipe($event)"
+      (toggleEditMode)="facade.toggleRecipeEditMode()"
+      (saveNewRecipe)="facade.saveNewRecipe()"
+      (updateRecipe)="facade.updateRecipe()"
+      (resetRecipe)="facade.resetRecipe()"
+      (deleteRecipe)="facade.deleteSelectedRecipe()"
+      (addRecipeToPlanner)="selected.id ? facade.addToPlanner(selected.id) : null"
+      (setActiveStep)="facade.setActiveStep($event)"
+      (addStepTimer)="facade.addGlobalTimer($event)"
+      (uiNotification)="facade.notifyWarning($event)"
+    />
+  }
+
+  <app-meal-planner
+    [show]="facade.showPlanner()"
+    [weekDays]="facade.currentWeekDays()"
+    [recipes]="facade.recipes()"
+    [selectedRecipeId]="facade.selectedRecipeForPlanner()"
+    [isEditMode]="facade.plannerEditMode()"
+    (close)="facade.closePlanner()"
+    (weekChanged)="facade.setWeekId($event)"
+    (toggleEditMode)="facade.togglePlannerEditMode()"
+    (assignRecipe)="facade.assignRecipeToDay($event)"
+    (removeRecipe)="facade.removeRecipeFromDay($event)"
+    (openRecipe)="facade.openRecipe($event)"
+  />
+
+  @if (facade.globalTimers().length > 0) {
+    <section class="global-timers">
+      <p>TIMERS</p>
+      @for (timer of facade.globalTimers(); track timer.id) {
+        <div class="timer-chip" [class.done]="timer.remainingSec === 0">
+          <strong>{{ timer.recipeTitle }}</strong>
+          <span>Step {{ timer.step }}</span>
+          <span>{{ facade.formatTimer(timer.remainingSec) }}</span>
+          @if (timer.remainingSec > 0) {
+            <button type="button" (click)="facade.toggleTimerPause(timer.id)">
+              {{ timer.paused ? 'Play' : 'Pause' }}
+            </button>
+            <button type="button" (click)="facade.resetTimer(timer.id)">Reset</button>
+          }
+          <button type="button" (click)="facade.removeTimer(timer.id)">x</button>
+        </div>
+      }
+    </section>
+  }
+
+  <section class="minibar" [class.with-timers]="facade.globalTimers().length > 0">
+    <p>TABS</p>
+    @for (id of facade.minimizedRecipeIds(); track id) {
+      <button
+        type="button"
+        class="tab"
+        [class.selected]="facade.selectedRecipe()?.id === id"
+        (click)="facade.openRecipe(id)"
+      >
+        {{ facade.recipes().find((recipe) => recipe.id === id)?.details?.name ?? "Recipe" }}
+        <span class="close" (click)="facade.closeMinimizedTab(id); $event.stopPropagation()"
+          >x</span
+        >
+      </button>
+    }
+  </section>
+</div>

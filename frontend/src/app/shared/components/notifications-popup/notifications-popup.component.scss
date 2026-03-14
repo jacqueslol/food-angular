@@ -1,0 +1,44 @@
+.notifications {
+  position: fixed;
+  top: 0.8rem;
+  right: 0.8rem;
+  z-index: 100;
+  display: grid;
+  gap: 0.45rem;
+  max-width: 420px;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-radius: 10px;
+  padding: 0.55rem 0.75rem;
+  color: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 18%);
+}
+
+.note.success {
+  background: #2e8b57;
+}
+
+.note.error {
+  background: #cc3a3a;
+}
+
+.note.info {
+  background: #3578d4;
+}
+
+.note.warning {
+  background: #c98411;
+}
+
+.note button {
+  border: none;
+  background: rgb(255 255 255 / 20%);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+}
