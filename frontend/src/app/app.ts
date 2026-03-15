@@ -6,7 +6,19 @@ import { RecipeEditorComponent } from './features/food/components/recipe-editor/
 import { FoodFacade } from './features/food/state/food.facade';
 import { NotificationsPopupComponent } from './shared/components/notifications-popup/notifications-popup.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faUtensils } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendar,
+  faCaretDown,
+  faCaretUp,
+  faCheck,
+  faFilter,
+  faPause,
+  faPlay,
+  faPlus,
+  faRotateRight,
+  faTimes,
+  faUtensils,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +38,16 @@ import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 export class App implements OnDestroy {
   readonly facade = inject(FoodFacade);
   utensilsIcon = faUtensils;
+  filterIcon = faFilter;
+  addIcon = faPlus;
+  plannerIcon = faCalendar;
+  playIcon = faPlay;
+  pauseIcon = faPause;
+  resetIcon = faRotateRight;
+  closeIcon = faTimes;
+  doneIcon = faCheck;
+  caretDownIcon = faCaretDown;
+  caretUpIcon = faCaretUp;
 
   ngOnDestroy(): void {
     this.facade.destroy();

@@ -1,17 +1,19 @@
-<aside class="planner" [class.visible]="show()">
+<aside class="planner" [class.visible]="show()" [class.editing]="isEditMode()">
   <header>
-    <input type="week" (change)="onWeekChanged($event)" />
-    <button type="button" (click)="toggleEditMode.emit()">
-      {{ isEditMode() ? "Editing On" : "Editing Off" }}
+    <input type="week" [value]="currentWeekId()" (change)="onWeekChanged($event)" />
+    <button type="button" (click)="toggleEditMode.emit()" [class.active]="isEditMode()">
+      <fa-icon class="margin-right-0" [icon]="penIcon" />
     </button>
-    <button type="button" class="close-btn" (click)="close.emit()">Close</button>
+    <button type="button" class="close-btn" (click)="close.emit()">
+      <fa-icon class="margin-right-0" [icon]="timesIcon" />
+    </button>
   </header>
 
   <section class="days">
     @for (day of weekDays(); track day.id) {
       <article class="day-card">
         <div class="day-header">
-          <strong>{{ day.day }}</strong>
+          <strong class="weekday">{{ day.day }}</strong>
           <span>{{ day.dateMonth }}, {{ day.year }}</span>
         </div>
 
@@ -19,14 +21,18 @@
           <div class="meal-block" (click)="onAssignRecipe(day.id, meal)">
             <p class="meal-label">{{ meal }}</p>
             @if (day[meal].length === 0) {
-              <small>No recipes</small>
+              <small class="primary-color"><fa-icon [icon]="plusIcon" /> No recipes</small>
             } @else {
               <div class="meal-items">
                 @for (recipeId of day[meal]; track recipeId) {
-                  <button type="button" (click)="onRecipeAction(day.id, meal, recipeId)">
-                    {{ recipesById().get(recipeId)?.details?.name ?? "Unknown recipe" }}
+                  <button
+                    type="button"
+                    class="small animated"
+                    (click)="onRecipeAction(day.id, meal, recipeId)"
+                  >
+                    {{ recipesById().get(recipeId)?.details?.name ?? 'Unknown recipe' }}
                     @if (isEditMode()) {
-                      <span class="delete-indicator">x</span>
+                      <span class="delete-indicator animated"><fa-icon [icon]="timesIcon" /></span>
                     }
                   </button>
                 }

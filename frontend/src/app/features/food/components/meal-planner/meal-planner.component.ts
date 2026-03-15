@@ -1,20 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from "@angular/core";
-import {
-  MealPlannerDay,
-  MealType,
-  Recipe,
-  RecipeId
-} from "../../../../core/models/food.models";
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPencil, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { MealPlannerDay, MealType, Recipe, RecipeId } from '../../../../core/models/food.models';
 
 @Component({
-  selector: "app-meal-planner",
+  selector: 'app-meal-planner',
   standalone: true,
-  templateUrl: "./meal-planner.component.html",
-  styleUrl: "./meal-planner.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [FontAwesomeModule],
+  templateUrl: './meal-planner.component.html',
+  styleUrl: './meal-planner.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MealPlannerComponent {
+  readonly plusIcon = faPlus;
+  readonly timesIcon = faTimes;
+  readonly penIcon = faPencil;
+
   readonly show = input(false);
+  readonly currentWeekId = input('');
   readonly weekDays = input<MealPlannerDay[]>([]);
   readonly recipes = input<Recipe[]>([]);
   readonly selectedRecipeId = input<RecipeId | null>(null);
@@ -27,7 +30,7 @@ export class MealPlannerComponent {
   readonly removeRecipe = output<{ dayId: string; mealType: MealType; recipeId: RecipeId }>();
   readonly openRecipe = output<RecipeId>();
 
-  readonly mealTypes: MealType[] = ["breakfast", "lunch", "dinner"];
+  readonly mealTypes: MealType[] = ['breakfast', 'lunch', 'dinner'];
 
   readonly recipesById = computed(() => {
     const map = new Map<RecipeId, Recipe>();
@@ -53,5 +56,6 @@ export class MealPlannerComponent {
       return;
     }
     this.openRecipe.emit(recipeId);
+    this.close.emit();
   }
 }

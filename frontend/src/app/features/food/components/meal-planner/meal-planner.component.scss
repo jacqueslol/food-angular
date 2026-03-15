@@ -5,15 +5,15 @@
 .planner {
   position: fixed;
   top: 0;
-  right: -360px;
-  width: 360px;
+  right: -100vw;
+  width: 100vw;
   height: 100%;
   background: #fff;
-  border-left: 1px solid #ddd;
-  z-index: 30;
+  z-index: 12;
   transition: right 0.25s ease;
   display: grid;
   grid-template-rows: auto 1fr;
+  max-width: 340px;
 }
 
 .planner.visible {
@@ -25,6 +25,10 @@ header {
   gap: 0.4rem;
   padding: 0.85rem;
   border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
 }
 
 header input {
@@ -37,7 +41,7 @@ header input {
 
 .days {
   overflow-y: auto;
-  padding: 0.75rem;
+  padding: 1rem;
 }
 
 .day-card {
@@ -56,7 +60,7 @@ header input {
 
 .day-header span {
   font-size: 0.8rem;
-  color: #666;
+  color: #999;
 }
 
 .meal-block {
@@ -80,13 +84,33 @@ header input {
 
 .meal-items button {
   border: 1px solid #f39b56;
-  color: #c96824;
+  color: #f39b56;
   background: #fff;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   padding: 0.2rem 0.5rem;
+}
+
+.planner.editing .meal-items button {
+  background-color: #ff5200;
+  border-color: #ff5200;
+  color: #fff;
 }
 
 .delete-indicator {
   margin-left: 0.2rem;
+}
+
+.day-header .weekday {
+  padding: 5px 8px;
+  font-weight: 600;
+  color: white;
+  background: #ffa557;
+  border-radius: 3px;
+}
+
+@media (max-width: 500px) {
+  .planner {
+    max-width: none;
+  }
 }

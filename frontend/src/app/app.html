@@ -1,20 +1,46 @@
-<div class="food-page" [class.show-filters]="facade.showFilters()">
+<div
+  class="food-page"
+  [class.show-filters]="facade.showFilters()"
+  [class.show-timers]="facade.globalTimers().length > 0"
+>
   <app-notifications-popup />
   <header class="topbar">
     <h1><fa-icon [icon]="utensilsIcon"></fa-icon> FOOD</h1>
     <input
+      class="desktop-name-filter"
       type="text"
       placeholder="Search recipes..."
       [ngModel]="facade.filterState().name"
       (ngModelChange)="facade.setNameFilter($event)"
     />
-    <button type="button" (click)="facade.toggleFilters()">Filters</button>
-    <button type="button" (click)="facade.startNewRecipe()">Add</button>
-    <button type="button" (click)="facade.togglePlanner()">Planner</button>
+    <button type="button" class="filters-btn" (click)="facade.toggleFilters()">
+      <fa-icon class="margin-right-0" [icon]="filterIcon" />
+      @if (facade.showFilters()) {
+        <fa-icon class="margin-right-0 small" [icon]="caretUpIcon" />
+      } @else {
+        <fa-icon class="margin-right-0 small" [icon]="caretDownIcon" />
+      }
+    </button>
+    <button type="button" class="hide-text-on-mobile" (click)="facade.startNewRecipe()">
+      <fa-icon [icon]="addIcon" /> <span>Add</span>
+    </button>
+    <button type="button" class="hide-text-on-mobile" (click)="facade.togglePlanner()">
+      <fa-icon [icon]="plannerIcon" /> <span>Planner</span>
+    </button>
   </header>
 
-  @if (facade.showFilters()) {
-    <section class="filters">
+  <section class="filters-drawer animated" [class.visible]="facade.showFilters()">
+    <div class="filters-content">
+      <h2>Filters</h2>
+      <label class="name-input">
+        Name/Title
+        <input
+          type="text"
+          [ngModel]="facade.filterState().name"
+          (ngModelChange)="facade.setNameFilter($event)"
+        />
+      </label>
+
       <label>
         Creator
         <input
@@ -23,6 +49,7 @@
           (ngModelChange)="facade.setCreatorFilter($event)"
         />
       </label>
+
       <label>
         Duration max (mins)
         <input
@@ -31,6 +58,7 @@
           (ngModelChange)="facade.onDurationFilterChanged($event)"
         />
       </label>
+
       <label>
         Ingredients (split by |)
         <input
@@ -38,7 +66,20 @@
           [ngModel]="facade.ingredientsFilterInput()"
           (ngModelChange)="facade.updateIngredientsFilter($event)"
         />
+        <div class="ingredient-filters selected-filters">
+          @for (ingredient of facade.filterState().ingredients; track ingredient) {
+            <button
+              class="remove-filter animated"
+              type="button"
+              (click)="facade.removeFilterIngredient(ingredient)"
+            >
+              {{ ingredient }}
+              <div class="delete-tag animated">x</div>
+            </button>
+          }
+        </div>
       </label>
+
       <label>
         Tags
         <select
@@ -51,18 +92,27 @@
           }
         </select>
       </label>
-      <div class="selected-filters">
+
+      <div class="tag-filters selected-filters">
         @for (tag of facade.filterState().tags; track tag) {
-          <button type="button" (click)="facade.removeFilterTag(tag)">{{ tag }} x</button>
-        }
-        @for (ingredient of facade.filterState().ingredients; track ingredient) {
-          <button type="button" (click)="facade.removeFilterIngredient(ingredient)">
-            {{ ingredient }} x
+          <button
+            class="remove-filter animated"
+            type="button"
+            (click)="facade.removeFilterTag(tag)"
+          >
+            {{ tag }}
+            <div class="delete-tag animated">x</div>
           </button>
         }
       </div>
-    </section>
-  }
+    </div>
+
+    <div class="filters-footer">
+      <button type="button" (click)="facade.toggleFilters()">
+        <fa-icon [icon]="filterIcon" /> Apply / Close
+      </button>
+    </div>
+  </section>
 
   @if (facade.loading()) {
     <div class="status">Loading recipes...</div>
@@ -70,9 +120,10 @@
     <div class="status error">{{ facade.error() }}</div>
   } @else {
     <main class="recipe-list">
-      @for (recipe of facade.filteredRecipes(); track recipe.id) {
+      @for (recipe of facade.filteredRecipes(); track recipe.id; let i = $index) {
         <app-recipe-card
           [recipe]="recipe"
+          [priority]="i === 0"
           [selectedForPlanner]="recipe.id === facade.selectedRecipeForPlanner()"
           (openRecipe)="facade.openRecipe($event)"
           (addRecipeToPlanner)="facade.addToPlanner($event)"
@@ -90,6 +141,7 @@
       [activeStep]="
         selected.id !== undefined ? (facade.activeStepByRecipeId()[selected.id] ?? null) : null
       "
+      [hasGlobalTimers]="facade.globalTimers().length > 0"
       [editMode]="facade.editMode()"
       (closeEditor)="facade.closeRecipe($event)"
       (toggleEditMode)="facade.toggleRecipeEditMode()"
@@ -106,6 +158,7 @@
 
   <app-meal-planner
     [show]="facade.showPlanner()"
+    [currentWeekId]="facade.weekId()"
     [weekDays]="facade.currentWeekDays()"
     [recipes]="facade.recipes()"
     [selectedRecipeId]="facade.selectedRecipeForPlanner()"
@@ -118,40 +171,46 @@
     (openRecipe)="facade.openRecipe($event)"
   />
 
-  @if (facade.globalTimers().length > 0) {
-    <section class="global-timers">
-      <p>TIMERS</p>
-      @for (timer of facade.globalTimers(); track timer.id) {
-        <div class="timer-chip" [class.done]="timer.remainingSec === 0">
-          <strong>{{ timer.recipeTitle }}</strong>
-          <span>Step {{ timer.step }}</span>
-          <span>{{ facade.formatTimer(timer.remainingSec) }}</span>
-          @if (timer.remainingSec > 0) {
-            <button type="button" (click)="facade.toggleTimerPause(timer.id)">
-              {{ timer.paused ? 'Play' : 'Pause' }}
-            </button>
-            <button type="button" (click)="facade.resetTimer(timer.id)">Reset</button>
-          }
-          <button type="button" (click)="facade.removeTimer(timer.id)">x</button>
-        </div>
-      }
-    </section>
-  }
-
-  <section class="minibar" [class.with-timers]="facade.globalTimers().length > 0">
+  <section class="minibar animated" [class.with-timers]="facade.globalTimers().length > 0">
     <p>TABS</p>
     @for (id of facade.minimizedRecipeIds(); track id) {
       <button
         type="button"
-        class="tab"
+        class="tab animated"
         [class.selected]="facade.selectedRecipe()?.id === id"
         (click)="facade.openRecipe(id)"
       >
         {{ facade.recipes().find((recipe) => recipe.id === id)?.details?.name ?? "Recipe" }}
-        <span class="close" (click)="facade.closeMinimizedTab(id); $event.stopPropagation()"
-          >x</span
-        >
+        <span
+          class="close animated"
+          (click)="facade.closeMinimizedTab(id); $event.stopPropagation()"
+          ><fa-icon class="margin-right-0" [icon]="closeIcon"
+        /></span>
       </button>
+    }
+  </section>
+
+  <section class="global-timers animated" [class.visible]="facade.globalTimers().length > 0">
+    <p>TIMERS</p>
+    @for (timer of facade.globalTimers(); track timer.id) {
+      <div class="timer-chip" [class.done]="timer.remainingSec === 0">
+        <span>{{ timer.recipeTitle }}</span>
+        <div class="timer-step">{{ timer.step }}</div>
+        <span>{{ facade.formatTimer(timer.remainingSec) }}</span>
+        @if (timer.remainingSec > 0) {
+          <button type="button" (click)="facade.toggleTimerPause(timer.id)">
+            <fa-icon [icon]="timer.paused ? playIcon : pauseIcon" />
+          </button>
+          <button type="button" (click)="facade.resetTimer(timer.id)">
+            <fa-icon [icon]="resetIcon" />
+          </button>
+        } @else {
+          <fa-icon [icon]="doneIcon" />
+        }
+        <button type="button" (click)="facade.removeTimer(timer.id)">
+          <fa-icon [icon]="closeIcon" />
+        </button>
+      </div>
     }
   </section>
 </div>

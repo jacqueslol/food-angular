@@ -26,12 +26,94 @@ input,
 select,
 textarea {
   font: inherit;
+  padding: 0.4em;
+  margin: 0 0 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 
 button {
-  border: 2px solid #efefef;
+  border: 2px solid #ffa557;
+  color: #ffa557;
   background: #fff;
   border-radius: 7px;
-  padding: 0.35rem 0.7rem;
+  padding: 0 0.7rem;
+  height: 35px;
   cursor: pointer;
+  margin: 0;
+}
+
+button fa-icon {
+  margin-right: 0.35rem;
+}
+
+button:disabled {
+  color: #999;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #666;
+}
+
+button.small {
+  padding: 0 2px;
+  border-width: 1px;
+  height: 29px;
+}
+
+button.small fa-icon {
+  margin-right: 0;
+  font-size: 0.8rem;
+}
+
+button.red-hover:hover {
+  background: #ff5200;
+  color: #fff;
+  transition: all 0.5s ease;
+}
+
+.margin-right-0 {
+  margin-right: 0;
+}
+
+.animated {
+  transition: all 0.5s ease;
+}
+
+.inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+input,
+textarea {
+  border-radius: 7px;
+  border: 1px solid #ccc;
+}
+
+textarea {
+  field-sizing: content;
+}
+
+button.active {
+  background-color: #ffa557;
+  color: #fff;
+}
+
+.primary-color {
+  color: #ffa557;
+}
+
+@media (max-width: 500px) {
+  .hide-text-on-mobile span {
+    display: none;
+  }
+
+  .hide-text-on-mobile fa-icon {
+    margin-right: 0;
+  }
 }

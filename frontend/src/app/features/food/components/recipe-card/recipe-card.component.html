@@ -1,16 +1,22 @@
 <article class="recipe-card" (click)="onOpenRecipe()">
   <button
-    class="planner-btn"
+    class="planner-btn animated"
     [class.selected]="selectedForPlanner()"
     (click)="onAddToPlanner($event)"
     type="button"
   >
-    + Planner
+    <fa-icon class="margin-right-0" [icon]="calendarPlusIcon" />
   </button>
 
   <div class="recipe-media">
     @if (recipe().img) {
-      <img [ngSrc]="recipe().img" [alt]="recipe().details.name" fill sizes="(max-width: 850px) 100vw, 50vw" loading="lazy" />
+      <img
+        [ngSrc]="recipe().img"
+        [alt]="recipe().details.name"
+        fill
+        sizes="(max-width: 850px) 100vw, 50vw"
+        [priority]="priority()"
+      />
     } @else {
       <div class="media-placeholder">No image</div>
     }
@@ -18,11 +24,8 @@
 
   <div class="recipe-content">
     <h3>{{ recipe().details.name }}</h3>
-    <p class="meta">
-      {{ recipe().details.serves }} {{ recipe().details.servesText }} | {{ recipe().details.prepTime }} mins
-    </p>
-    <p class="creator">By {{ recipe().details.creator }}</p>
     <div class="tags">
+      <fa-icon [icon]="tagIcon" />
       @for (tag of recipe().details.tags; track tag) {
         <span>{{ tag }}</span>
       }
@@ -30,5 +33,13 @@
         <span class="empty-tag">No tags</span>
       }
     </div>
+    <div class="divider-line"></div>
+    <p class="meta">
+      <fa-icon [icon]="userIcon" />
+      {{ recipe().details.serves }} {{ recipe().details.servesText }}
+      <fa-icon [icon]="clockIcon" style="padding-left: 10px" />
+      {{ recipe().details.prepTime }} mins
+    </p>
+    <p class="creator"><fa-icon [icon]="starIcon" /> {{ recipe().details.creator }}</p>
   </div>
 </article>

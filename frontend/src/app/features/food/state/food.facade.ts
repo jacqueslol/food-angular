@@ -1,11 +1,11 @@
-import { Injectable, inject } from "@angular/core";
-import { MealType, RecipeId } from "../../../core/models/food.models";
-import { NotificationService } from "../../../core/services/notification.service";
-import { FoodPlannerFacade } from "./food-planner.facade";
-import { FoodRecipesFacade } from "./food-recipes.facade";
-import { FoodTimersService } from "./food-timers.service";
+import { Injectable, inject } from '@angular/core';
+import { MealType, RecipeId } from '../../../core/models/food.models';
+import { NotificationService } from '../../../core/services/notification.service';
+import { FoodPlannerFacade } from './food-planner.facade';
+import { FoodRecipesFacade } from './food-recipes.facade';
+import { FoodTimersService } from './food-timers.service';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class FoodFacade {
   private readonly recipesState = inject(FoodRecipesFacade);
   private readonly plannerState = inject(FoodPlannerFacade);
@@ -42,14 +42,17 @@ export class FoodFacade {
   }
 
   async loadInitialData(): Promise<void> {
-    await Promise.all([this.recipesState.loadInitialData(), this.plannerState.loadMealplannerData()]);
+    await Promise.all([
+      this.recipesState.loadInitialData(),
+      this.plannerState.loadMealplannerData(),
+    ]);
   }
 
   openRecipe(recipeId: RecipeId): void {
     this.recipesState.openRecipe(recipeId);
   }
 
-  closeRecipe(mode: "exit" | "minimize"): void {
+  closeRecipe(mode: 'exit' | 'minimize'): void {
     this.recipesState.closeRecipe(mode);
   }
 
@@ -119,6 +122,7 @@ export class FoodFacade {
 
   addToPlanner(recipeId: RecipeId): void {
     this.plannerState.addToPlanner(recipeId);
+    this.notifications.info(`Add recipe to planner`);
   }
 
   togglePlanner(): void {

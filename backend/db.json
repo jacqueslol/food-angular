@@ -521,91 +521,6 @@
     },
     {
       "details": {
-        "name": "Roasted Tomato Soup and Grilled Cheese",
-        "serves": 4,
-        "servesText": "portion(s)",
-        "tags": [
-          "lunch",
-          "soup",
-          "comfort-food",
-          "vegetarian"
-        ],
-        "prepTime": 50,
-        "creator": "Jacques Louw"
-      },
-      "ingredients": [
-        {
-          "qty": 1.2,
-          "text": "kg ripe tomatoes, halved"
-        },
-        {
-          "qty": 1,
-          "text": "onion, quartered"
-        },
-        {
-          "qty": 6,
-          "text": "garlic cloves"
-        },
-        {
-          "qty": 3,
-          "text": "tbsp olive oil"
-        },
-        {
-          "qty": 2,
-          "text": "cups vegetable stock"
-        },
-        {
-          "qty": 8,
-          "text": "slices sandwich bread"
-        },
-        {
-          "qty": 200,
-          "text": "g cheddar cheese, grated"
-        },
-        {
-          "qty": 2,
-          "text": "tbsp butter"
-        }
-      ],
-      "steps": [
-        {
-          "text": "Roast tomatoes, onion, and garlic with olive oil at 220C until caramelized.",
-          "showTimer": false,
-          "timerMins": 30,
-          "videoTime": null
-        },
-        {
-          "text": "Blend roasted vegetables with stock until smooth.",
-          "showTimer": false,
-          "timerMins": null,
-          "videoTime": null
-        },
-        {
-          "text": "Simmer soup for 10 minutes and season to taste.",
-          "showTimer": false,
-          "timerMins": 10,
-          "videoTime": null
-        },
-        {
-          "text": "Butter bread, fill with cheddar, and toast sandwiches until golden.",
-          "showTimer": false,
-          "timerMins": 8,
-          "videoTime": null
-        },
-        {
-          "text": "Serve soup hot with grilled cheese.",
-          "showTimer": false,
-          "timerMins": null,
-          "videoTime": null
-        }
-      ],
-      "video": "",
-      "videoFormat": "mp4",
-      "img": "images/Roasted-Tomato-Soup-1-Socials-scaled.jpg",
-      "id": "7"
-    },
-    {
-      "details": {
         "name": "Greek Chicken Salad",
         "serves": 4,
         "servesText": "portion(s)",
@@ -1051,9 +966,25 @@
       "year": "2026",
       "breakfast": [],
       "lunch": [],
-      "dinner": [
-        "12"
-      ]
+      "dinner": []
+    },
+    {
+      "id": "2026-03-09",
+      "day": "Tue",
+      "dateMonth": "10 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": []
+    },
+    {
+      "id": "2026-03-13",
+      "day": "Sat",
+      "dateMonth": "14 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": []
     }
   ],
   "tags": [

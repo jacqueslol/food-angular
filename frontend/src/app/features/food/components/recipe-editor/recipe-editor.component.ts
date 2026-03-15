@@ -1,26 +1,58 @@
-import { ChangeDetectionStrategy, Component, input, output } from "@angular/core";
-import { NgOptimizedImage } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import { RecipeDraft } from "../../../../core/models/food.models";
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import {
+  faCalendarPlus,
+  faCircleInfo,
+  faClock,
+  faFloppyDisk,
+  faListOl,
+  faPaste,
+  faPencil,
+  faPlus,
+  faRotateRight,
+  faTimes,
+  faTrash,
+  faVideo,
+  faWindowMinimize,
+} from '@fortawesome/free-solid-svg-icons';
+import { RecipeDraft } from '../../../../core/models/food.models';
 
 @Component({
-  selector: "app-recipe-editor",
+  selector: 'app-recipe-editor',
   standalone: true,
-  imports: [FormsModule, NgOptimizedImage],
-  templateUrl: "./recipe-editor.component.html",
-  styleUrl: "./recipe-editor.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [FormsModule, NgOptimizedImage, FontAwesomeModule],
+  templateUrl: './recipe-editor.component.html',
+  styleUrl: './recipe-editor.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeEditorComponent {
-  private static readonly RESERVED_VIDEO_TAG = "video";
+  private static readonly RESERVED_VIDEO_TAG = 'video';
   private servesScaleBaseline: number | null = null;
+
+  readonly infoIcon = faCircleInfo;
+  readonly pencilIcon = faPencil;
+  readonly ingredientsIcon = faPlus;
+  readonly stepsIcon = faListOl;
+  readonly videoIcon = faVideo;
+  readonly addIcon = faPlus;
+  readonly pasteIcon = faPaste;
+  readonly saveIcon = faFloppyDisk;
+  readonly resetIcon = faRotateRight;
+  readonly plannerIcon = faCalendarPlus;
+  readonly deleteIcon = faTrash;
+  readonly minimizeIcon = faWindowMinimize;
+  readonly closeIcon = faTimes;
+  readonly timerIcon = faClock;
 
   readonly recipe = input<RecipeDraft | null>(null);
   readonly availableTags = input<string[]>([]);
   readonly activeStep = input<number | null>(null);
   readonly editMode = input(false);
+  readonly hasGlobalTimers = input(false);
 
-  readonly closeEditor = output<"exit" | "minimize">();
+  readonly closeEditor = output<'exit' | 'minimize'>();
   readonly toggleEditMode = output<void>();
   readonly saveNewRecipe = output<void>();
   readonly updateRecipe = output<void>();
@@ -31,7 +63,8 @@ export class RecipeEditorComponent {
   readonly addStepTimer = output<{ stepIndex: number; timerMins: number }>();
   readonly uiNotification = output<string>();
 
-  tagInput = "";
+  tagInput = '';
+  mobileTab: 'info' | 'ingredients' | 'steps' | 'video' = 'info';
 
   addTag(): void {
     const draft = this.recipe();
@@ -43,15 +76,17 @@ export class RecipeEditorComponent {
       return;
     }
     if (candidate === RecipeEditorComponent.RESERVED_VIDEO_TAG) {
-      this.uiNotification.emit('"video" is reserved and is set automatically when a recipe has a video URL.');
+      this.uiNotification.emit(
+        '"video" is reserved and is set automatically when a recipe has a video URL.',
+      );
       return;
     }
     if (draft.details.tags.includes(candidate)) {
-      this.uiNotification.emit("That tag already exists on this recipe.");
+      this.uiNotification.emit('That tag already exists on this recipe.');
       return;
     }
     draft.details.tags = [...draft.details.tags, candidate].sort();
-    this.tagInput = "";
+    this.tagInput = '';
   }
 
   removeTag(tag: string): void {
@@ -67,7 +102,7 @@ export class RecipeEditorComponent {
     if (!draft) {
       return;
     }
-    draft.ingredients = [...draft.ingredients, { qty: 1, text: "ingredient" }];
+    draft.ingredients = [...draft.ingredients, { qty: 1, text: 'ingredient' }];
   }
 
   removeIngredient(index: number): void {
@@ -85,7 +120,7 @@ export class RecipeEditorComponent {
     }
     draft.steps = [
       ...draft.steps,
-      { text: "Describe this step", showTimer: false, timerMins: null, videoTime: null }
+      { text: 'Describe this step', showTimer: false, timerMins: null, videoTime: null },
     ];
   }
 
@@ -105,7 +140,7 @@ export class RecipeEditorComponent {
 
     const text = await navigator.clipboard.readText();
     const rows = text
-      .split("\n")
+      .split('\n')
       .map((row) => row.trim())
       .filter(Boolean);
 
@@ -115,7 +150,7 @@ export class RecipeEditorComponent {
       const ingredientText = firstNumber ? row.slice(firstNumber[0].length).trim() : row;
       return {
         qty,
-        text: ingredientText
+        text: ingredientText,
       };
     });
   }
@@ -128,7 +163,7 @@ export class RecipeEditorComponent {
 
     const text = await navigator.clipboard.readText();
     const rows = text
-      .split("\n")
+      .split('\n')
       .map((row) => row.trim())
       .filter(Boolean);
 
@@ -136,14 +171,13 @@ export class RecipeEditorComponent {
       text: row,
       showTimer: false,
       timerMins: null,
-      videoTime: null
+      videoTime: null,
     }));
   }
 
   captureServesBaseline(currentServes: number): void {
-    this.servesScaleBaseline = Number.isFinite(currentServes) && currentServes > 0
-      ? currentServes
-      : null;
+    this.servesScaleBaseline =
+      Number.isFinite(currentServes) && currentServes > 0 ? currentServes : null;
   }
 
   scaleIngredientsFromServesChange(newServesRaw: number): void {
@@ -176,10 +210,22 @@ export class RecipeEditorComponent {
       }
       return {
         ...ingredient,
-        qty: (qty / baseline) * newServes
+        qty: (qty / baseline) * newServes,
       };
     });
 
     this.servesScaleBaseline = newServes;
+  }
+
+  setMobileTab(tab: 'info' | 'ingredients' | 'steps' | 'video'): void {
+    this.mobileTab = tab;
+  }
+
+  canShowVideoTab(): boolean {
+    const draft = this.recipe();
+    if (!draft) {
+      return false;
+    }
+    return this.editMode() || Boolean(draft.video?.trim());
   }
 }

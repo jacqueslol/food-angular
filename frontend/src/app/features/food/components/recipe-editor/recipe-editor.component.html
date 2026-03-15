@@ -1,128 +1,270 @@
 @if (recipe(); as currentRecipe) {
-  <section class="editor-overlay">
-    <article class="editor">
-      <header class="editor-topbar">
-        <button type="button" (click)="toggleEditMode.emit()">
-          {{ editMode() ? "Editing On" : "Editing Off" }}
-        </button>
-
-        @if (!currentRecipe.id) {
-          <button type="button" (click)="saveNewRecipe.emit()">Save New</button>
-        } @else {
-          <button type="button" (click)="updateRecipe.emit()">Update</button>
-          <button type="button" (click)="resetRecipe.emit()">Reset</button>
-          <button type="button" (click)="addRecipeToPlanner.emit()">Add to Planner</button>
-        }
-
-        <div class="actions-right">
-          @if (currentRecipe.id) {
-            <button type="button" class="danger" (click)="deleteRecipe.emit()">Delete</button>
-            <button type="button" (click)="closeEditor.emit('minimize')">Minimize</button>
-          }
-          <button type="button" class="primary" (click)="closeEditor.emit('exit')">Close</button>
-        </div>
-      </header>
-
-      <div class="editor-content">
-        <aside class="ingredients">
-          <div class="section-heading">
-            <h3>Ingredients</h3>
-            @if (editMode()) {
-              <div class="section-controls">
-                <button type="button" (click)="addIngredient()">Add</button>
-                <button type="button" (click)="pasteIngredients()">Paste</button>
-              </div>
+  <section class="editor-overlay animated" [class.with-global-timers]="hasGlobalTimers()">
+    <div class="inner">
+      <article class="editor" [class.editing]="editMode()">
+        <header class="editor-topbar">
+          <div class="actions-right">
+            @if (currentRecipe.id) {
+              <button type="button" class="danger" (click)="deleteRecipe.emit()">
+                <fa-icon class="margin-right-0" [icon]="deleteIcon" />
+              </button>
+              <button type="button" (click)="closeEditor.emit('minimize')">
+                <fa-icon class="margin-right-0" [icon]="minimizeIcon" />
+              </button>
             }
+            <button type="button" class="primary" (click)="closeEditor.emit('exit')">
+              <fa-icon class="margin-right-0" [icon]="closeIcon" />
+            </button>
           </div>
 
-          @for (ingredient of currentRecipe.ingredients; track $index) {
-            <div class="ingredient-row">
-              <input type="number" [(ngModel)]="ingredient.qty" [disabled]="!editMode()" />
-              <textarea [(ngModel)]="ingredient.text" [disabled]="!editMode()"></textarea>
+          <div class="actions-left">
+            @if (!currentRecipe.id) {
+              <button type="button" (click)="saveNewRecipe.emit()">
+                <fa-icon [icon]="saveIcon" /> Save New
+              </button>
+            } @else {
+              <button
+                class="animated"
+                type="button"
+                (click)="toggleEditMode.emit()"
+                [class.active]="editMode()"
+              >
+                <fa-icon [icon]="pencilIcon" /> {{ editMode() ? 'Editing On' : 'Editing Off' }}
+              </button>
               @if (editMode()) {
-                <button type="button" (click)="removeIngredient($index)">x</button>
+                <button type="button" (click)="updateRecipe.emit()">
+                  <fa-icon [icon]="saveIcon" /> Save
+                </button>
+                <button type="button" (click)="resetRecipe.emit()">
+                  <fa-icon [icon]="resetIcon" /> Reset
+                </button>
               }
-            </div>
-          }
-        </aside>
+              <button type="button" (click)="addRecipeToPlanner.emit()">
+                <fa-icon [icon]="plannerIcon" /> Plan
+              </button>
+            }
+          </div>
+        </header>
 
-        <main class="recipe-main">
-          <section class="overview">
-            <div class="media-block">
-              @if (currentRecipe.img) {
-                <img [ngSrc]="currentRecipe.img" [alt]="currentRecipe.details.name" fill sizes="(max-width: 1180px) 100vw, 40vw" loading="lazy" />
-              } @else {
-                <div class="media-placeholder">No image</div>
-              }
-              @if (editMode()) {
-                <label>Image URL <input type="text" [(ngModel)]="currentRecipe.img" /></label>
-              }
-            </div>
+        <nav class="mobile-tabs">
+          <button
+            type="button"
+            [class.active]="mobileTab === 'info'"
+            (click)="setMobileTab('info')"
+          >
+            <fa-icon [icon]="infoIcon" /> Info
+          </button>
+          <button
+            type="button"
+            [class.active]="mobileTab === 'ingredients'"
+            (click)="setMobileTab('ingredients')"
+          >
+            <fa-icon [icon]="addIcon" /> Ingr.
+          </button>
+          <button
+            type="button"
+            [class.active]="mobileTab === 'steps'"
+            (click)="setMobileTab('steps')"
+          >
+            <fa-icon [icon]="stepsIcon" /> Steps
+          </button>
+          <!-- TODO video -->
+          <!-- @if (canShowVideoTab()) {
+            <button
+              type="button"
+              [class.active]="mobileTab === 'video'"
+              (click)="setMobileTab('video')"
+            >
+              <fa-icon [icon]="videoIcon" /> Video
+            </button>
+          } -->
+        </nav>
 
-            <div class="overview-main">
-              <input type="text" class="title-input" [(ngModel)]="currentRecipe.details.name" [disabled]="!editMode()" />
-              <div class="meta-grid">
-                <label>
-                  Serves
-                  <input
-                    type="number"
-                    [(ngModel)]="currentRecipe.details.serves"
-                    (focus)="captureServesBaseline(currentRecipe.details.serves)"
-                    (ngModelChange)="scaleIngredientsFromServesChange($event)"
-                  />
-                </label>
-                <label>Serves text <input type="text" [(ngModel)]="currentRecipe.details.servesText" [disabled]="!editMode()" /></label>
-                <label>Prep mins <input type="number" [(ngModel)]="currentRecipe.details.prepTime" [disabled]="!editMode()" /></label>
-                <label>Creator <input type="text" [(ngModel)]="currentRecipe.details.creator" [disabled]="!editMode()" /></label>
-              </div>
-
-              <div class="tags">
-                @for (tag of currentRecipe.details.tags; track tag) {
-                  <button type="button" class="tag" [disabled]="!editMode()" (click)="removeTag(tag)">{{ tag }}</button>
-                }
-                @if (editMode()) {
-                  <input list="existing-tags" [(ngModel)]="tagInput" placeholder="Add tag" />
-                  <datalist id="existing-tags">
-                    @for (tag of availableTags(); track tag) {
-                      <option [value]="tag"></option>
-                    }
-                  </datalist>
-                  <button type="button" (click)="addTag()">Add</button>
-                }
-              </div>
-            </div>
-          </section>
-
-          <section class="steps">
+        <div class="editor-content">
+          <aside
+            class="ingredients panel panel-ingredients"
+            [class.active]="mobileTab === 'ingredients'"
+          >
             <div class="section-heading">
-              <h3>Steps</h3>
+              <h3>Ingredients</h3>
               @if (editMode()) {
                 <div class="section-controls">
-                  <button type="button" (click)="addStep()">Add</button>
-                  <button type="button" (click)="pasteSteps()">Paste</button>
+                  <button type="button" (click)="addIngredient()">Add</button>
+                  <button type="button" (click)="pasteIngredients()">Paste</button>
                 </div>
               }
             </div>
-            @for (step of currentRecipe.steps; track $index) {
-              <div class="step-row" [class.active]="activeStep() === $index + 1">
-                <button type="button" class="step-index" (click)="setActiveStep.emit($index + 1)">{{ $index + 1 }}</button>
-                <textarea [(ngModel)]="step.text" [disabled]="!editMode()"></textarea>
+
+            @for (ingredient of currentRecipe.ingredients; track $index) {
+              <div class="ingredient-row">
+                <input
+                  class="ingredient-qty"
+                  type="number"
+                  [(ngModel)]="ingredient.qty"
+                  [disabled]="!editMode()"
+                />
+                <textarea [(ngModel)]="ingredient.text" [disabled]="!editMode()"></textarea>
                 @if (editMode()) {
-                  <label class="timer-inline">
-                    Timer
-                    <input type="number" [(ngModel)]="step.timerMins" />
-                  </label>
-                  <button type="button" (click)="removeStep($index)">x</button>
-                } @else if ((step.timerMins ?? 0) > 0) {
-                  <button type="button" (click)="addStepTimer.emit({ stepIndex: $index, timerMins: step.timerMins ?? 0 })">
-                    {{ step.timerMins }} min timer
+                  <button class="small red-hover" type="button" (click)="removeIngredient($index)">
+                    <fa-icon [icon]="closeIcon" />
                   </button>
                 }
               </div>
             }
-          </section>
-        </main>
-      </div>
-    </article>
+          </aside>
+
+          <main class="recipe-main">
+            <section class="overview panel panel-info" [class.active]="mobileTab === 'info'">
+              <div class="media-block">
+                @if (currentRecipe.img) {
+                  <img
+                    [ngSrc]="currentRecipe.img"
+                    [alt]="currentRecipe.details.name"
+                    fill
+                    sizes="(max-width: 1180px) 100vw, 40vw"
+                    loading="lazy"
+                  />
+                } @else {
+                  <div class="media-placeholder">No image</div>
+                }
+                @if (editMode()) {
+                  <div style="margin-top: 10px">
+                    <label>Image URL <input type="text" [(ngModel)]="currentRecipe.img" /></label>
+                  </div>
+                }
+              </div>
+
+              <div class="overview-main">
+                <input
+                  type="text"
+                  class="title-input"
+                  [(ngModel)]="currentRecipe.details.name"
+                  [disabled]="!editMode()"
+                />
+                <div class="meta-grid">
+                  <label>
+                    Serves
+                    <input
+                      type="number"
+                      [(ngModel)]="currentRecipe.details.serves"
+                      (focus)="captureServesBaseline(currentRecipe.details.serves)"
+                      (ngModelChange)="scaleIngredientsFromServesChange($event)"
+                    />
+                  </label>
+                  <label
+                    >Serves text
+                    <input
+                      type="text"
+                      [(ngModel)]="currentRecipe.details.servesText"
+                      [disabled]="!editMode()"
+                  /></label>
+                  <label
+                    >Prep mins
+                    <input
+                      type="number"
+                      [(ngModel)]="currentRecipe.details.prepTime"
+                      [disabled]="!editMode()"
+                  /></label>
+                  <label
+                    >Creator
+                    <input
+                      type="text"
+                      [(ngModel)]="currentRecipe.details.creator"
+                      [disabled]="!editMode()"
+                  /></label>
+                </div>
+
+                <div class="tags">
+                  @for (tag of currentRecipe.details.tags; track tag) {
+                    <button
+                      type="button"
+                      class="tag small"
+                      [disabled]="!editMode()"
+                      (click)="removeTag(tag)"
+                    >
+                      {{ tag }}
+                      <div class="tag-x">x</div>
+                    </button>
+                  }
+                  @if (editMode()) {
+                    <input list="existing-tags" [(ngModel)]="tagInput" placeholder="Add tag" />
+                    <datalist id="existing-tags">
+                      @for (tag of availableTags(); track tag) {
+                        <option [value]="tag"></option>
+                      }
+                    </datalist>
+                    <button type="button" (click)="addTag()">Add</button>
+                  }
+                </div>
+              </div>
+            </section>
+
+            <section class="steps panel panel-steps" [class.active]="mobileTab === 'steps'">
+              <div class="section-heading">
+                <h3>Steps</h3>
+                @if (editMode()) {
+                  <div class="section-controls">
+                    <button type="button" (click)="addStep()">Add</button>
+                    <button type="button" (click)="pasteSteps()">Paste</button>
+                  </div>
+                }
+              </div>
+              @for (step of currentRecipe.steps; track $index) {
+                <div class="step-row" [class.active]="activeStep() === $index + 1">
+                  <div class="step-main">
+                    <button
+                      type="button"
+                      class="step-index"
+                      (click)="setActiveStep.emit($index + 1)"
+                    >
+                      {{ $index + 1 }}
+                    </button>
+                    <textarea [(ngModel)]="step.text" [disabled]="!editMode()"></textarea>
+                  </div>
+                  <div class="step-actions">
+                    @if (editMode()) {
+                      <label class="timer-inline">
+                        <fa-icon [icon]="timerIcon" /> Timer
+                        <input type="number" [(ngModel)]="step.timerMins" />
+                      </label>
+                      <button class="small red-hover" type="button" (click)="removeStep($index)">
+                        <fa-icon [icon]="deleteIcon" /> Remove
+                      </button>
+                    } @else if ((step.timerMins ?? 0) > 0) {
+                      <button
+                        class="small"
+                        type="button"
+                        (click)="
+                          addStepTimer.emit({ stepIndex: $index, timerMins: step.timerMins ?? 0 })
+                        "
+                      >
+                        <fa-icon [icon]="timerIcon" /> {{ step.timerMins }} min timer
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+            </section>
+
+            <!-- TODO video -->
+            <!-- @if (canShowVideoTab()) {
+              <section class="video panel panel-video" [class.active]="mobileTab === 'video'">
+                @if (currentRecipe.video) {
+                  <video controls [src]="currentRecipe.video"></video>
+                } @else {
+                  <p class="no-video">No video set for this recipe.</p>
+                }
+                @if (editMode()) {
+                  <label>Video URL <input type="text" [(ngModel)]="currentRecipe.video" /></label>
+                  <label
+                    >Video Format <input type="text" [(ngModel)]="currentRecipe.videoFormat"
+                  /></label>
+                }
+              </section>
+            } -->
+          </main>
+        </div>
+      </article>
+    </div>
   </section>
 }

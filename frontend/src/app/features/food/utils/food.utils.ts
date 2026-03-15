@@ -27,7 +27,7 @@ export function getWeekIdentifier(date = new Date()): string {
   utcDate.setUTCDate(utcDate.getUTCDate() + 4 - (utcDate.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(utcDate.getUTCFullYear(), 0, 1));
   const weekNo = Math.ceil(((utcDate.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
-  return `${utcDate.getUTCFullYear()}-W${weekNo}`;
+  return `${utcDate.getUTCFullYear()}-W${String(weekNo).padStart(2, "0")}`;
 }
 
 export function buildWeekDays(weekIdentifier: string, existingDays: MealPlannerDay[]): MealPlannerDay[] {
