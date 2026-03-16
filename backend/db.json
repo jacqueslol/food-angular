@@ -90,7 +90,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/shakshuka-with-feta.jpg",
+      "img": "/assets/images/shakshuka-with-feta.jpg",
       "id": "1"
     },
     {
@@ -173,7 +173,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/lemon-herb-chicken.jpg",
+      "img": "/assets/images/lemon-herb-chicken.jpg",
       "id": "2"
     },
     {
@@ -260,7 +260,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/beef-stroganoff-featured-2025.jpg",
+      "img": "/assets/images/beef-stroganoff-featured-2025.jpg",
       "id": "3"
     },
     {
@@ -348,7 +348,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/Thai-Basil-Chicken-3.jpg",
+      "img": "/assets/images/Thai-Basil-Chicken-3.jpg",
       "id": "4"
     },
     {
@@ -437,7 +437,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/Coconut-Chickpea-Curry.jpg",
+      "img": "/assets/images/Coconut-Chickpea-Curry.jpg",
       "id": "5"
     },
     {
@@ -516,7 +516,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/One-Pan-Salmon-and-Vegetables-4-1.jpg",
+      "img": "/assets/images/One-Pan-Salmon-and-Vegetables-4-1.jpg",
       "id": "6"
     },
     {
@@ -600,7 +600,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/Greek-chicken-salad-recipe-6.jpg",
+      "img": "/assets/images/Greek-chicken-salad-recipe-6.jpg",
       "id": "8"
     },
     {
@@ -684,7 +684,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/Spinach-Mushroom-Risotto-SQUARE.jpg",
+      "img": "/assets/images/Spinach-Mushroom-Risotto-SQUARE.jpg",
       "id": "9"
     },
     {
@@ -763,7 +763,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/sheet-pan-sausage-peppers-onions-and-potatoes.jpg",
+      "img": "/assets/images/sheet-pan-sausage-peppers-onions-and-potatoes.jpg",
       "id": "10"
     },
     {
@@ -828,7 +828,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/blueberry-overnight-oats-40.jpg",
+      "img": "/assets/images/blueberry-overnight-oats-40.jpg",
       "id": "11"
     },
     {
@@ -918,7 +918,7 @@
       ],
       "video": "",
       "videoFormat": "mp4",
-      "img": "images/Turkey-Chili-1-500x500.jpg",
+      "img": "/assets/images/Turkey-Chili-1-500x500.jpg",
       "id": "12"
     }
   ],
@@ -985,6 +985,17 @@
       "breakfast": [],
       "lunch": [],
       "dinner": []
+    },
+    {
+      "id": "2026-03-18",
+      "day": "Thu",
+      "dateMonth": "19 Mar",
+      "year": "2026",
+      "breakfast": [],
+      "lunch": [],
+      "dinner": [
+        "1"
+      ]
     }
   ],
   "tags": [

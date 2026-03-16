@@ -1,13 +1,19 @@
-import { Injectable, computed, effect, inject, signal } from "@angular/core";
-import { Recipe, RecipeDraft, RecipeFilters, RecipeId, Tag } from "../../../core/models/food.models";
-import { FoodApiService } from "../../../core/services/food-api.service";
-import { NotificationService } from "../../../core/services/notification.service";
-import { cloneRecipe, createEmptyRecipeDraft } from "../utils/food.utils";
+import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import {
+  Recipe,
+  RecipeDraft,
+  RecipeFilters,
+  RecipeId,
+  Tag,
+} from '../../../core/models/food.models';
+import { FoodApiService } from '../../../core/services/food-api.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { cloneRecipe, createEmptyRecipeDraft } from '../utils/food.utils';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class FoodRecipesFacade {
-  private static readonly TAB_STORAGE_KEY = "food.minimizedTabs";
-  private static readonly RESERVED_VIDEO_TAG = "video";
+  private static readonly TAB_STORAGE_KEY = 'food.minimizedTabs';
+  private static readonly RESERVED_VIDEO_TAG = 'video';
   private readonly api = inject(FoodApiService);
   private readonly notifications = inject(NotificationService);
 
@@ -21,32 +27,34 @@ export class FoodRecipesFacade {
   readonly error = signal<string | null>(null);
   readonly showFilters = signal(false);
   readonly filterState = signal<RecipeFilters>({
-    name: "",
-    creator: "",
+    name: '',
+    creator: '',
     durationLessThan: null,
     tags: [],
-    ingredients: []
+    ingredients: [],
   });
-  readonly ingredientsFilterInput = signal("");
+  readonly ingredientsFilterInput = signal('');
 
   readonly filteredRecipes = computed(() => {
     const recipes = this.recipes();
     const filters = this.filterState();
 
     return recipes.filter((recipe) => {
-      const nameMatches = !filters.name
-        || recipe.details.name.toLowerCase().includes(filters.name.toLowerCase());
-      const creatorMatches = !filters.creator
-        || recipe.details.creator.toLowerCase().includes(filters.creator.toLowerCase());
-      const durationMatches = filters.durationLessThan === null
-        || recipe.details.prepTime <= filters.durationLessThan;
-      const tagsMatch = filters.tags.length === 0
-        || filters.tags.every((tag) => recipe.details.tags.includes(tag));
-      const ingredientsMatch = filters.ingredients.length === 0
-        || filters.ingredients.every((ingredientFilter) =>
+      const nameMatches =
+        !filters.name || recipe.details.name.toLowerCase().includes(filters.name.toLowerCase());
+      const creatorMatches =
+        !filters.creator ||
+        recipe.details.creator.toLowerCase().includes(filters.creator.toLowerCase());
+      const durationMatches =
+        filters.durationLessThan === null || recipe.details.prepTime <= filters.durationLessThan;
+      const tagsMatch =
+        filters.tags.length === 0 || filters.tags.every((tag) => recipe.details.tags.includes(tag));
+      const ingredientsMatch =
+        filters.ingredients.length === 0 ||
+        filters.ingredients.every((ingredientFilter) =>
           recipe.ingredients.some((ingredient) =>
-            ingredient.text.toLowerCase().includes(ingredientFilter.toLowerCase())
-          )
+            ingredient.text.toLowerCase().includes(ingredientFilter.toLowerCase()),
+          ),
         );
       return nameMatches && creatorMatches && durationMatches && tagsMatch && ingredientsMatch;
     });
@@ -57,7 +65,7 @@ export class FoodRecipesFacade {
     effect(() => {
       window.localStorage.setItem(
         FoodRecipesFacade.TAB_STORAGE_KEY,
-        JSON.stringify(this.minimizedRecipeIds())
+        JSON.stringify(this.minimizedRecipeIds()),
       );
     });
   }
@@ -70,10 +78,10 @@ export class FoodRecipesFacade {
       this.recipes.set(recipes);
       this.tags.set(tags);
       this.minimizedRecipeIds.update((ids) =>
-        ids.filter((id) => recipes.some((recipe) => recipe.id === id))
+        ids.filter((id) => recipes.some((recipe) => recipe.id === id)),
       );
     } catch {
-      const message = "Could not load Food data from API.";
+      const message = 'Could not load Food data from API.';
       this.error.set(message);
       this.notifications.error(message);
     } finally {
@@ -93,12 +101,12 @@ export class FoodRecipesFacade {
     this.editMode.set(false);
   }
 
-  closeRecipe(mode: "exit" | "minimize"): void {
+  closeRecipe(mode: 'exit' | 'minimize'): void {
     const current = this.selectedRecipe();
     if (!current) {
       return;
     }
-    if (mode === "exit" && current.id !== undefined) {
+    if (mode === 'exit' && current.id !== undefined) {
       this.minimizedRecipeIds.update((ids) => ids.filter((id) => id !== current.id));
     }
     this.selectedRecipe.set(null);
@@ -132,9 +140,9 @@ export class FoodRecipesFacade {
       this.minimizedRecipeIds.update((ids) => [...new Set([...ids, created.id])]);
       this.editMode.set(false);
       await this.reloadTags();
-      this.notifications.success("Recipe added successfully.");
+      this.notifications.success('Recipe added successfully.');
     } catch (error) {
-      this.notifications.error(getErrorMessage(error, "Could not add recipe."));
+      this.notifications.error(getErrorMessage(error, 'Could not add recipe.'));
     }
   }
 
@@ -148,14 +156,14 @@ export class FoodRecipesFacade {
       await this.persistMissingTags(payload.details.tags);
       const updated = await this.api.updateRecipe(draft.id, payload);
       this.recipes.update((recipes) =>
-        recipes.map((recipe) => (recipe.id === updated.id ? updated : recipe))
+        recipes.map((recipe) => (recipe.id === updated.id ? updated : recipe)),
       );
       this.selectedRecipe.set(cloneRecipe(updated));
       this.editMode.set(false);
       await this.reloadTags();
-      this.notifications.success("Recipe updated successfully.");
+      this.notifications.success('Recipe updated successfully.');
     } catch (error) {
-      this.notifications.error(getErrorMessage(error, "Could not update recipe."));
+      this.notifications.error(getErrorMessage(error, 'Could not update recipe.'));
     }
   }
 
@@ -169,9 +177,9 @@ export class FoodRecipesFacade {
       const fromApi = await this.api.getRecipeById(draft.id);
       this.selectedRecipe.set(cloneRecipe(fromApi));
       this.editMode.set(false);
-      this.notifications.info("Recipe changes reset.");
+      this.notifications.info('Recipe changes reset.');
     } catch (error) {
-      this.notifications.error(getErrorMessage(error, "Could not reset recipe."));
+      this.notifications.error(getErrorMessage(error, 'Could not reset recipe.'));
     }
   }
 
@@ -181,12 +189,14 @@ export class FoodRecipesFacade {
       return;
     }
     try {
-      await this.api.deleteRecipe(draft.id);
-      this.recipes.update((recipes) => recipes.filter((recipe) => recipe.id !== draft.id));
-      this.closeMinimizedTab(draft.id);
-      this.notifications.success("Recipe deleted successfully.");
+      if (confirm('(CONFIRMS WIP) Are you sure you want to delete this entry?')) {
+        await this.api.deleteRecipe(draft.id);
+        this.recipes.update((recipes) => recipes.filter((recipe) => recipe.id !== draft.id));
+        this.closeMinimizedTab(draft.id);
+        this.notifications.success('Recipe deleted successfully.');
+      }
     } catch (error) {
-      this.notifications.error(getErrorMessage(error, "Could not delete recipe."));
+      this.notifications.error(getErrorMessage(error, 'Could not delete recipe.'));
     }
   }
 
@@ -197,32 +207,32 @@ export class FoodRecipesFacade {
     }
     this.activeStepByRecipeId.update((map) => ({
       ...map,
-      [String(draft.id)]: map[String(draft.id)] === stepNumber ? null : stepNumber
+      [String(draft.id)]: map[String(draft.id)] === stepNumber ? null : stepNumber,
     }));
   }
 
   updateIngredientsFilter(rawValue: string): void {
     this.ingredientsFilterInput.set(rawValue);
     const normalized = rawValue
-      .split("|")
+      .split('|')
       .map((entry) => entry.trim())
       .filter(Boolean);
     this.filterState.update((state) => ({
       ...state,
-      ingredients: [...new Set(normalized)]
+      ingredients: [...new Set(normalized)],
     }));
   }
 
   removeFilterIngredient(ingredient: string): void {
     const updated = this.filterState().ingredients.filter((entry) => entry !== ingredient);
     this.filterState.update((state) => ({ ...state, ingredients: updated }));
-    this.ingredientsFilterInput.set(updated.join(" | "));
+    this.ingredientsFilterInput.set(updated.join(' | '));
   }
 
   removeFilterTag(tag: string): void {
     this.filterState.update((state) => ({
       ...state,
-      tags: state.tags.filter((entry) => entry !== tag)
+      tags: state.tags.filter((entry) => entry !== tag),
     }));
   }
 
@@ -230,7 +240,7 @@ export class FoodRecipesFacade {
     const parsed = Number(rawValue);
     this.filterState.update((state) => ({
       ...state,
-      durationLessThan: Number.isFinite(parsed) && parsed > 0 ? parsed : null
+      durationLessThan: Number.isFinite(parsed) && parsed > 0 ? parsed : null,
     }));
   }
 
@@ -265,7 +275,7 @@ export class FoodRecipesFacade {
   private async persistMissingTags(incomingTags: string[]): Promise<void> {
     const existing = new Set(this.tags().map((tag) => tag.name));
     const missing = [...new Set(incomingTags.map((tag) => tag.trim().toLowerCase()))].filter(
-      (tag) => tag && !existing.has(tag)
+      (tag) => tag && !existing.has(tag),
     );
     await Promise.all(missing.map((tag) => this.api.createTag(tag)));
   }
@@ -273,7 +283,7 @@ export class FoodRecipesFacade {
   private toPayloadWithoutReservedTags(draft: RecipeDraft): RecipeDraft {
     const payload = cloneRecipe(draft);
     payload.details.tags = payload.details.tags.filter(
-      (tag) => tag.trim().toLowerCase() !== FoodRecipesFacade.RESERVED_VIDEO_TAG
+      (tag) => tag.trim().toLowerCase() !== FoodRecipesFacade.RESERVED_VIDEO_TAG,
     );
     return payload;
   }
@@ -286,9 +296,11 @@ export class FoodRecipesFacade {
       }
       const parsed = JSON.parse(raw) as RecipeId[];
       if (Array.isArray(parsed)) {
-        this.minimizedRecipeIds.set(
-          [...new Set(parsed.filter((value) => typeof value === "number" || typeof value === "string"))]
-        );
+        this.minimizedRecipeIds.set([
+          ...new Set(
+            parsed.filter((value) => typeof value === 'number' || typeof value === 'string'),
+          ),
+        ]);
       }
     } catch {
       this.minimizedRecipeIds.set([]);
@@ -298,13 +310,13 @@ export class FoodRecipesFacade {
 
 function getErrorMessage(error: unknown, fallback: string): string {
   const candidate = error as { error?: { error?: string } | string; message?: string };
-  if (typeof candidate?.error === "string") {
+  if (typeof candidate?.error === 'string') {
     return candidate.error;
   }
-  if (typeof candidate?.error === "object" && typeof candidate.error?.error === "string") {
+  if (typeof candidate?.error === 'object' && typeof candidate.error?.error === 'string') {
     return candidate.error.error;
   }
-  if (typeof candidate?.message === "string") {
+  if (typeof candidate?.message === 'string') {
     return candidate.message;
   }
   return fallback;

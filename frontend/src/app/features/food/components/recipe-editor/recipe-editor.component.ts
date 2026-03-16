@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  NgZone,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
@@ -65,6 +73,8 @@ export class RecipeEditorComponent {
 
   tagInput = '';
   mobileTab: 'info' | 'ingredients' | 'steps' | 'video' = 'info';
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly ngZone = inject(NgZone);
 
   addTag(): void {
     const draft = this.recipe();
@@ -144,14 +154,26 @@ export class RecipeEditorComponent {
       .map((row) => row.trim())
       .filter(Boolean);
 
-    draft.ingredients = rows.map((row) => {
-      const firstNumber = row.match(/^\d+(\.\d+)?/);
-      const qty = firstNumber ? Number(firstNumber[0]) : 0;
-      const ingredientText = firstNumber ? row.slice(firstNumber[0].length).trim() : row;
-      return {
-        qty,
-        text: ingredientText,
-      };
+    this.ngZone.run(() => {
+      draft.ingredients = rows.map((row) => {
+        const match = /\d+(\.\d+)?/.exec(row);
+
+        if (!match) {
+          return {
+            qty: 0,
+            text: row,
+          };
+        }
+
+        const qty = Number(match[0]);
+        const ingredientText = row.slice(match.index + match[0].length).trim();
+
+        return {
+          qty,
+          text: ingredientText,
+        };
+      });
+      this.cdr.markForCheck();
     });
   }
 
@@ -167,12 +189,15 @@ export class RecipeEditorComponent {
       .map((row) => row.trim())
       .filter(Boolean);
 
-    draft.steps = rows.map((row) => ({
-      text: row,
-      showTimer: false,
-      timerMins: null,
-      videoTime: null,
-    }));
+    this.ngZone.run(() => {
+      draft.steps = rows.map((row) => ({
+        text: row,
+        showTimer: false,
+        timerMins: null,
+        videoTime: null,
+      }));
+      this.cdr.markForCheck();
+    });
   }
 
   captureServesBaseline(currentServes: number): void {

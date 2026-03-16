@@ -72,20 +72,20 @@ export async function deleteRecipe(id) {
 
 async function normalizeRecipePayload(payload) {
   const clonedPayload = JSON.parse(JSON.stringify(payload || {}));
-  const incomingTags = [...(clonedPayload.details?.tags || []), "video"];
-  const hasReservedTag = incomingTags.some(
-    (tag) =>
-      typeof tag === "string" &&
-      tag.trim().toLowerCase() === RESERVED_VIDEO_TAG,
-  );
+  const incomingTags = [...(clonedPayload.details?.tags || [])]; // video?
+  // const hasReservedTag = incomingTags.some(
+  //   (tag) =>
+  //     typeof tag === "string" &&
+  //     tag.trim().toLowerCase() === RESERVED_VIDEO_TAG,
+  // );
 
-  if (hasReservedTag) {
-    const error = new Error(
-      `"${RESERVED_VIDEO_TAG}" is a reserved tag and cannot be set manually`,
-    );
-    error.status = 400;
-    throw error;
-  }
+  // if (hasReservedTag) {
+  //   const error = new Error(
+  //     `"${RESERVED_VIDEO_TAG}" is a reserved tag and cannot be set manually`,
+  //   );
+  //   error.status = 400;
+  //   throw error;
+  // }
 
   const normalizedTags = incomingTags
     .filter((tag) => typeof tag === "string")
